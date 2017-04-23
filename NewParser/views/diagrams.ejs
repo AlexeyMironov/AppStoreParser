@@ -1,0 +1,85 @@
+<html>
+<head>
+    <script language="JavaScript" src="jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="dashboard_div">
+    <table class="columns">
+        <tbody>
+        <tr>
+            <td>
+                <div style="padding-left: 15px" id="slider_div"></div>
+            </td>
+            <td>
+                <div id="categoryPicker_div"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="chart_div"></div>
+            </td>
+            <td>
+                <div id="table_div"></div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <script type="text/javascript">
+   google.charts.load('current', {'packages':['corechart', 'table', 'gauge', 'controls']});
+   google.charts.setOnLoadCallback(drawMainDashboard);
+
+   function drawMainDashboard() {
+   var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
+   var slider = new google.visualization.ControlWrapper({
+         'controlType': 'NumberRangeFilter',
+         'containerId': 'slider_div',
+         'options': {
+             'filterColumnIndex': 1,
+             'ui': {
+                 'labelStacking': 'vertical',
+                 'label': 'Filter:'
+   }
+   }
+   });
+   var categoryPicker = new google.visualization.ControlWrapper({
+   'controlType': 'CategoryFilter',
+   'containerId': 'categoryPicker_div',
+   'options': {
+   'filterColumnIndex': 0,
+   'ui': {
+   'labelStacking': 'vertical',
+   'label': 'Selection:',
+   'allowTyping': false,
+   'allowMultiple': false
+   }
+   }
+   });
+   var pie = new google.visualization.ChartWrapper({
+   'chartType': 'PieChart',
+   'containerId': 'chart_div',
+   'sort': 'enable',
+   'options': {
+   'width': 500,
+   'height': 500,
+   'legend': 'none',
+   'chartArea': {'left': 15, 'top': 15, 'right': 0, 'bottom': 0},
+   'pieSliceText': 'label'
+   },
+   'view': {'columns': [0, 1]}
+   });
+   var table = new google.visualization.ChartWrapper({
+   'chartType': 'Table',
+   'containerId': 'table_div',
+   'options': {
+   }
+   });
+
+    <%var result = JSON.parse(resArr) %>
+    var data = google.visualization.arrayToDataTable(<%- result%>);
+
+    dashboard.bind([slider, categoryPicker], [pie, table]); dashboard.draw(data)};
+    </script>
+</body></html>

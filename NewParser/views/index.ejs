@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Info</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Info</title>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+
+    <link href="/public/stylesheets/jquery.dataTables.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+
+  </head>
+  <body>
+    <script src = "/public/javascripts/xmlparser.js"></script>
+    <h1>AppStoreParser</h1>
+    <form action="/diagrams" method="get"class="form-group">
+      <select name="diagrams" class="btn-group-vertical">
+        <option value="artistName">Developer</option>
+        <option value="price">Price</option>
+        <option value="primaryGenreName">Category</option>
+        <option value="averageUserRating">Average User Rating</option>
+        <option value="supportedDevices">Devices</option>
+        <option value="fileSizeBytes">File Size</option>
+        <option value="releaseDate">Release Date</option>
+        <option value="version">Version</option>
+        <option value="minimumOsVersion">Minimum iOS</option>
+        <option value="features">Features</option>
+      </select>
+      <input type="submit" value="Construct a diagram" class="btn btn-default">
+    </form>
+    <div class="table-responsive">
+      <!-- Table -->
+      <table id="appTable"class="table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Icon</th>
+            <th>Name</th>
+            <th>Dev.</th>
+            <th>Price</th>
+            <th>Cat.</th>
+            <th>Rating</th>
+            <th>Rating Count</th>
+            <th>Devices</th>
+            <th>File Size</th>
+            <th>Orig. Rel. Date</th>
+            <th>Ver</th>
+            <th>Cur.Ver. Rel. Date</th>
+            <th>Min. iOS</th>
+            <th>Content Rating</th>
+            <th>Advis.</th>
+            <th>Languages</th>
+            <th>Screenshots</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i < info.length; i++) {var j=i+1 %>
+          <tr>
+            <th><%= j %></th>
+            <th><a class="pull-left" href="#"><img class="media-object" src=<%= info[i].artworkUrl60 %> /></a></th>
+            <th><%= info[i].trackName %></th>
+            <th><%= info[i].artistName %></th>
+            <th><%= info[i].price %></th>
+            <% if(info[i].features.indexOf("gameCenter ") != - 1) { %>
+              <th><%= info[i].primaryGenreName %><a class="pull-left"><img class="media-object" src = "/images/game-center.png"></a></th>
+            <% } else { %>
+              <th><%= info[i].primaryGenreName %></th>
+            <% } %>
+            <th><%= info[i].averageUserRating %></th>
+            <th><%= info[i].userRatingCount %></th>
+            <% var idElem = "#el" + j %>
+
+            <th><button class="btn btn-info" data-toggle="collapse" data-target=<%= idElem %> >...</button>
+                <%var idElem1 = "el" + j %>
+                <div class= "collapse" id= <%= idElem1 %>>
+                  <%= info[i].supportedDevices %>
+                </div>
+            </th>
+            <th><%= info[i].fileSizeBytes %></th>
+            <% var bufer = info[i].releaseDate %>
+            <% var posEnd = String(bufer).indexOf("T") %>
+            <% bufer = bufer.substr(0, posEnd) %>
+            <th><%= bufer %></th>
+            <% var idRelNotes = info[i].releaseNotes + j %>
+            <th>
+              <%= info[i].version%><a class="btn btn-info" data-toggle="modal" href= <%= idRelNotes %>>Release <br> notes</a>
+            </th>
+            <div class = "modal fade" id= <%= idRelNotes%>>
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button class="close" data-dismiss="modal">×</button>
+                    <% var temp = info[i].trackName + ' ' + info[i].version %>
+                    <h3><%= temp%></h3>
+                  </div>
+                  <div class="modal-body">
+                    <p><%= info[i].releaseNotes%></p>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% bufer = info[i].currentVersionReleaseDate %>
+            <% posEnd = String(bufer).indexOf("T") %>
+            <% bufer = bufer.substr(0, posEnd) %>
+            <th><%= bufer %></th>
+            <th><%= info[i].minimumOsVersion%></th>
+            <th><%= info[i].trackContentRating%></th>
+            <th><button class="btn btn-info" data-toggle="collapse" data-target='advis' + <%=j %>>...</button>
+                <div id='advis' + <%=j %> class="collapse">
+                  <%= info[i].advisories %>
+                </div>
+              </th>
+            <th><%= info[i].languageCodesISO2A %></th>
+            <% var screenshots = info[i].screenshotUrls %>
+            <% var screenshot = [] %>
+            <% if(screenshots == "") {%>
+              <% screenshots = info[i].ipadScreenshotUrls %>
+              <% if(screenshots == "") {%>
+                <% screenshots = info[i].ipadScreenshotUrls %>
+              <% } %>
+            <% } %>
+            <% var posStart = screenshots.indexOf("http://") %>
+            <% while(posStart > 0) { %>
+              <% posEnd = screenshots.indexOf("http://", posStart + 6)%>
+              <% if(posEnd < 0) { %>
+                <% screenshot.push(screenshots.substr(posStart, screenshots.length - posStart)) %>
+              <% } else { %>
+                <% screenshot.push(screenshots.substr(posStart, posEnd - posStart)) %>
+              <% } %>
+              <% posStart = posEnd%>
+            <% } %>
+            <th>
+              <% for(var s=0; s < screenshot.length; s++) { %>
+                <img src = <%= screenshot[s] %> />
+              <% } %>
+            </th>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <script>
+        $(function(){
+          $("#appTable").dataTable({
+            scrollY: '70vh',
+            scrollX: true,
+          });
+        })
+      </script>
+    </div>
+  </body>
+</html>

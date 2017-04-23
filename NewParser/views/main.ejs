@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Info</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="media/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
+    <script language="JavaScript" src="jquery-2.2.4.min.js"></script>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+
+    <link href="/public/stylesheets/jquery.dataTables.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+</head>
+    <body>
+    <form action="/" method="get"class="form-group">
+        <select name="country" class="btn-group-vertical">
+            <option value="jp">Japan</option>
+            <option value="ru">Russia</option>
+            <option value="us">United States</option>
+        </select>
+        <select name="type" class="btn-group-vertical">
+            <option value="newapplications">New Applications</option>
+            <option value="newfreeapplications">New Free Applications</option>
+            <option value="newpaidapplications">New Paid Applications</option>
+            <option value="topfreeapplications">Top Free Applications</option>
+            <option value="topfreeipadapplications">Top Free iPad Applications</option>
+            <option value="topgrossingapplications">Top Grossing Applications</option>
+            <option value="topgrossingipadapplications">Top Grossing iPad Applications</option>
+            <option value="toppaidapplications">Top Paid Applications</option>
+            <option value="toppaidipadapplications">Top Paid iPad Applications</option>
+        </select>
+
+        <select name="genre" class="btn-group-vertical">
+            <option value="6018">Books</option>
+            <option value="6000">Business</option>
+            <option value="6022">Catalogs</option>
+            <option value="6017">Education</option>
+            <option value="6016">Entertainment</option>
+            <option value="6015">Finance</option>
+            <option value="6023">Food & Drink</option>
+            <option value="6014">Games</option>
+
+            <option value="7001">-Action</option>
+            <option value="7002">-Adventure</option>
+            <option value="7003">-Arcade</option>
+            <option value="7004">-Board</option>
+            <option value="7005">-Card</option>
+            <option value="7006">-Casino</option>
+            <option value="7007">-Dice</option>
+            <option value="7008">-Educational</option>
+            <option value="7009">-Family</option>
+            <option value="7010">-Kids</option>
+            <option value="7011">-Music</option>
+            <option value="7012">-Puzzle</option>
+            <option value="7013">-Racing</option>
+            <option value="7014">-Role Playing</option>
+            <option value="7015">-Simulation</option>
+            <option value="7016">-Sports</option>
+            <option value="7017">-Strategy</option>
+            <option value="7018">-Trivia</option>
+            <option value="7019">-Word</option>
+
+            <option value="6013">Health & Fitness</option>
+            <option value="6012">Lifestyle</option>
+            <option value="6020">Medical</option>
+            <option value="6011">Music</option>
+            <option value="6010">Navigation</option>
+            <option value="6009">News</option>
+            <option value="6021">Newsstand</option>
+            <option value="6008">Photo & Video</option>
+            <option value="6007">Productivity</option>
+            <option value="6006">Reference</option>
+            <option value="6005">Social Networking</option>
+            <option value="6004">Sports</option>
+            <option value="6003">Travel</option>
+            <option value="6002">Utilities</option>
+            <option value="6001">Weather</option>
+        </select>
+        <p>Select date: <input type = "date" name = "calendar">
+        <input type="submit" value="Get rating" class="btn btn-default">
+    </form>
+    </body>
+</html>
